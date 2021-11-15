@@ -3,6 +3,8 @@
 int main(){
     InitWindow(600,600,"Raylib");
 
+    
+
     while(!WindowShouldClose()){
         // Update
 
