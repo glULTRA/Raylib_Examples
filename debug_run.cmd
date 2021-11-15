@@ -1,2 +1,2 @@
-cmake --build ./build/;
-.\build\Raylib;
+cmake --build ./build/
+.\build\Raylib
