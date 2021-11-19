@@ -1,49 +1,49 @@
+#include <stdio.h>
 #include <raylib.h>
-#include <ctime>
-#include <cstdlib>
-#include <vector>
+
+#define SCR_WIDTH 600
+#define SCR_HEIGHT 600
+
+// each 1 seconds is equal to each 60 frames of the game.
 
 int main()
 {
-    srand(time(NULL));
-    InitWindow(600,600,"Raylib");
+    InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
-    Color colors[5] = {GREEN,RED,YELLOW,WHITE,BLUE};
-    Vector2 pixel = {300.0f, 300.0f};
-    std::vector<Vector2> pixels;
+    Rectangle rect = {100, 100, 200, 80};
+    Vector2 mousePos = {0, 0};
 
+    SetTargetFPS(60);
+    
     while(!WindowShouldClose()){
-        // Update
-        static int interval = 0;
-        static int currentDir = 0;
-        interval++;
-        if(interval == 10){
-            currentDir = rand() % 4;
-            interval = 0;
-        }
+        /* <---------Update---------> */
+        mousePos = GetMousePosition();
+        static int frameCounter = 0;
+        frameCounter++;
 
-        if(currentDir == 0){
-            pixel.x += 1.0f;
-        }
-        else if (currentDir == 1){
-            pixel.x -= 1.0f;
-        }
-        else if (currentDir == 2){
-            pixel.y += 1.0f;
-        }
-        else if (currentDir == 3){
-            pixel.y -= 1.0f;
-        }
+    
+        // Check Collision
 
-
-        pixels.push_back(pixel);
-
-        // Render
+        /* <---------Render---------> */ 
         BeginDrawing();
             ClearBackground(BLACK);
-            for(auto pix: pixels){
-                DrawPixel(pix.x, pix.y, RED);
+            if(frameCounter < 240){
+                DrawText("Wait for 4 seconds", 100,100,50,RED);
             }
+            else{
+                DrawText("Boom", 100,100,50,GREEN);
+            }
+            if(frameCounter < 60){
+                DrawText("\n1", 100,100,50,GREEN);
+            }
+            else if(frameCounter < 120){
+                DrawText("\n2", 100,100,50,GREEN);
+            }else if(frameCounter < 180){
+                DrawText("\n3", 100,100,50,GREEN);
+            }else if(frameCounter < 240){
+                DrawText("\n4", 100,100,50,GREEN);
+            }
+
         EndDrawing();
     }
 }
