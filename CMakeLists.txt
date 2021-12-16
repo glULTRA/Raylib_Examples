@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14.0)
+cmake_minimum_required(VERSION 3.12.0)
 
 project(Raylib)
 
@@ -17,4 +17,6 @@ target_link_directories(${PROJECT_NAME}
 
 IF(WIN32)
     target_link_libraries(${PROJECT_NAME} raylib opengl32 gdi32 winmm)
+ELSEIF(UNIX)
+    target_link_libraries(${PROJECT_NAME} raylib)
 ENDIF()
