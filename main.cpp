@@ -1,66 +1,49 @@
-#include <stdio.h>
-#include <raylib.h>
+#include <iostream>
 #include <cmath>
-
-#define RAYGUI_IMPLEMENTATION
-#include <extras/raygui.h>
+#include <raylib.h>
 
 #define SCR_WIDTH 600
 #define SCR_HEIGHT 600
+#define SCR_TITLE "Raylib"
 
-int main()
-{
-    InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
+int main(){
+    // Initialize window
+    InitWindow(SCR_WIDTH, SCR_HEIGHT, SCR_TITLE);
 
-    // Circle Attributes
-    Vector2 ScelerationLeftPos  = Vector2{150.0f,300.0f};
-    Vector2 ScelerationRightPos = Vector2{450.0f,300.0f};
+    // Sceleration
+    Vector2 Sceleration = Vector2{150.0f,300.0f};
+    float Sceleration_Radius = 75.0f;
+    Vector2 Eye = Vector2{150.0f, 300.0f};
+    float Eye_Radius = 25.0f;
 
-    Vector2 EyeLeftPos  = Vector2{150.0f,300.0f};
-    Vector2 EyeRightPos  = Vector2{450.0f,300.0f};
-
-
+    // FPS
     SetTargetFPS(60);
 
-    while(!WindowShouldClose())
-    {
-        /* <---------Update---------> */
-        EyeLeftPos  = GetMousePosition();
-        EyeRightPos = GetMousePosition();
-        if(!CheckCollisionPointCircle(ScelerationLeftPos, EyeLeftPos, 75-25)){
-            float dy = EyeLeftPos.y - ScelerationLeftPos.y;
-            float dx = EyeLeftPos.x - ScelerationLeftPos.x;
-            float angle = atan2f(dy, dx);
-            float dxx = (75 - 25) * cosf(angle);
-            float dyy = (75 - 25) * sinf(angle);
+    // Game Loop
+    while(!WindowShouldClose()){
+        /* <---- Update ----> */
+        Eye = GetMousePosition();
 
-            EyeLeftPos.x = ScelerationLeftPos.x + dxx;
-            EyeLeftPos.y = ScelerationLeftPos.y + dyy;
-        }
-        if(!CheckCollisionPointCircle(ScelerationRightPos, EyeRightPos, 75-25)){
-            float dy = EyeRightPos.y - ScelerationRightPos.y;
-            float dx = EyeRightPos.x - ScelerationRightPos.x;
+        // Check Collision With Sceleretation.
+        if(!CheckCollisionPointCircle(Sceleration ,Eye, Sceleration_Radius - Eye_Radius)){
+            float dy = Eye.y - Sceleration.y;
+            float dx = Eye.x - Sceleration.x;
             float angle = atan2f(dy, dx);
-            float dxx = (75 - 25) * cosf(angle);
-            float dyy = (75 - 25) * sinf(angle);
+            float dxx = (Sceleration_Radius - Eye_Radius) * cosf(angle);
+            float dyy = (Sceleration_Radius - Eye_Radius) * sinf(angle);
+            Eye.x = Sceleration.x + dxx;
+            Eye.y = Sceleration.y + dyy;
 
-            EyeRightPos.x = ScelerationRightPos.x + dxx;
-            EyeRightPos.y = ScelerationRightPos.y + dyy;
+            std::cout << angle << "\n";
         }
 
-
-        /* <---------Render---------> */ 
+        /* <---- Render ----> */
         BeginDrawing();
-            ClearBackground(Color{30,70,100});
-            // Left Eye
-            DrawCircleV(ScelerationLeftPos ,75, GRAY);
-            DrawCircleV(EyeLeftPos ,25, ORANGE);
-            DrawCircleV(EyeLeftPos ,12, BLACK);
+            ClearBackground(BLACK);
+            /* <---- Drawing ----> */
+            DrawCircleV(Sceleration, Sceleration_Radius, GRAY);  
+            DrawCircleV(Eye, Eye_Radius, ORANGE);          
 
-
-            DrawCircleV(ScelerationRightPos,75, GRAY);
-            DrawCircleV(EyeRightPos ,25, BLUE);
-            DrawCircleV(EyeRightPos ,12, BLACK);            // Right Eye
         EndDrawing();
     }
 }
