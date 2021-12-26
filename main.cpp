@@ -18,7 +18,7 @@ int main()
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
     // Shader
-    Shader shader = Shader("examples/res/Shader/glsl%i/Shader.fs");
+    Shader shader = LoadShader(0, TextFormat("examples/res/Shader/glsl%i/Shader.fs", GLSL_VERSION));
 
     // FPS
     SetTargetFPS(60);
@@ -30,6 +30,9 @@ int main()
         /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(BLACK);
+            BeginShaderMode(shader);
+                DrawCircle(306, 306, 50, GREEN);
+            EndShaderMode();
 
         EndDrawing();
     }
