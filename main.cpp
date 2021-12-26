@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include <iostream>
+#include <cmath>
 #include <raylib.h>
 #include <iostream>
 
@@ -52,7 +53,7 @@ int main()
             }
         }
 
-        /* <---------Render---------> */ 
+        /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(WHITE);
             DrawFPS(0,0);
