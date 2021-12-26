@@ -19,7 +19,7 @@ int main()
     Vector2 DVD_Pos = Vector2{SCR_WIDTH/2.0f, SCR_HEIGHT/2.0f};
     Vector2 DVD_Speed = Vector2{5.0f, 4.0f};
     
-    Texture2D texture = LoadTexture("dvd-logo.png");
+    Texture2D texture = LoadTexture("examples/res/Texture/dvd-logo.png");
     texture.width  = DVD_Radius;
     texture.height = DVD_Radius;
 
