@@ -1,15 +1,6 @@
-#include <iostream>
-#include <cmath>
-#include <vector>
 #include <raylib.h>
-#include <rlgl.h>
 #include <raymath.h>
-
-#if defined(_WIN32)
-    #define GLSL_VERSION 330
-#else
-    #define GLSL_VERSION 100
-#endif
+#include <cmath>
 
 #define SCR_WIDTH 612
 #define SCR_HEIGHT 612
