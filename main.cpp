@@ -40,7 +40,8 @@ int main()
             ClearBackground(BLACK);
             BeginMode3D(camera);
                 DrawGrid(10,1.5f);
-                DrawSphereWires(Vector3{0.0f, 0.0f, 0.0f}, 1.4f, 16, 16, RED);
+                DrawSphere(Vector3{0.0f, 0.0f, 0.0f}, 1.4f, RED);
+                DrawSphereWires(Vector3{0.0f, 0.0f, 0.0f}, 1.5f, 16, 16, RED);
             EndMode3D();
         EndDrawing();
     }
