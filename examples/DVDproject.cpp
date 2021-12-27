@@ -61,6 +61,7 @@ int main()
             
             // GUI Controls
             DVD_Radius = GuiSliderBar(Rectangle{500, 10, 85, 30},"DVD Radius", "", DVD_Radius, 1.0f, 299.0f);
+
         EndDrawing();
     }
 }
