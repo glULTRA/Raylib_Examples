@@ -55,13 +55,12 @@ int main()
         /* <---------Render---------> */ 
         BeginDrawing();
             ClearBackground(WHITE);
-            DrawFPS(0,0);
             DrawCircleV(DVD_Pos, DVD_Radius, RED);
             DrawTexture(texture, DVD_Pos.x - (DVD_Radius/2.0f), DVD_Pos.y - (DVD_Radius/2.0f), WHITE);
             
             // GUI Controls
             DVD_Radius = GuiSliderBar(Rectangle{500, 10, 85, 30},"DVD Radius", "", DVD_Radius, 1.0f, 299.0f);
-
+            DrawFPS(0,0);
         EndDrawing();
     }
 }
