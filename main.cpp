@@ -30,6 +30,11 @@ int main()
         float time = GetTime();
         UpdateCamera(&camera);
 
+        if(IsKeyPressed(KEY_P))
+            camera.projection = CAMERA_PERSPECTIVE;
+        else if(IsKeyPressed(KEY_O))
+            camera.projection = CAMERA_ORTHOGRAPHIC;
+
         /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(BLACK);
