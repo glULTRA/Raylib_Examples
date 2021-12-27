@@ -26,14 +26,17 @@ int main()
     while(!WindowShouldClose())
     {
         /* <---------Update---------> */
+        float time = GetTime();
+        static float xColor = 0.0f;
+        xColor = std::sin(time) / 2.0f + 0.5f;
 
         /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(BLACK);
             BeginShaderMode(shader);
                 DrawCircle(306, 306, 50, GREEN);
+                SetShaderValue(shader, GetShaderLocation(shader, "xColor"), &xColor, SHADER_UNIFORM_FLOAT);
             EndShaderMode();
-
         EndDrawing();
     }
 
