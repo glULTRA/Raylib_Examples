@@ -18,7 +18,7 @@ int main()
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
     // Shader
-    Shader shader = LoadShader(0, TextFormat("examples/res/Shader/glsl%i/Shader.fs", GLSL_VERSION));
+    Shader shader = LoadShader(0, TextFormat("res/Shader/glsl%i/Shader.fs", GLSL_VERSION));
 
     // Camera
     Camera camera = {0};
