@@ -17,8 +17,8 @@ int main()
     // Model
     Model model = Model{};
     Model model2 = Model{};
-    model = LoadModel("examples/res/Object/Model1/gltf/rigged_figure.glb");
-    model2 = LoadModel("examples/res/Object/Model1/gltf/vertex_colored_object.glb");
+    model = LoadModel("res/Object/Model1/gltf/rigged_figure.glb");
+    model2 = LoadModel("res/Object/Model1/gltf/vertex_colored_object.glb");
 
 
     // FPS
