@@ -39,15 +39,17 @@ int main()
         model2.transform    = MatrixMultiply(model2.transform ,MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 3.0f * time));
         model2.transform    = MatrixMultiply(model2.transform ,MatrixTranslate(0.0f, 0.0f, std::sin(time)));
         
+        // Spin on its position
         model3.transform    = MatrixRotate(Vector3{0.0f,1.0f,0.0f}, time);
+        
         /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(BLACK);
             BeginMode3D(camera);
                 DrawGrid(10,1.5f);
-                DrawModel(model, Vector3{0.0f, 0.0f, 0.0f}, 1.0f, WHITE);
-                DrawModel(model2, Vector3{2.0f, 0.0f, -1.0f}, 1.0f, WHITE);
-                DrawModel(model3, Vector3{-2.0f, 0.0f, -1.0f}, 1.0f, WHITE);
+                DrawModel(model , Vector3{0.0f, 0.0f, 0.0f}, 1.0f, WHITE);
+                //DrawModel(model2, Vector3{2.0f, 0.0f,-1.0f}, 1.0f, WHITE);
+                DrawModel(model3, Vector3{0.0f, 0.0f, 0.0f}, 1.0f, WHITE);
             EndMode3D();
         EndDrawing();
     }
