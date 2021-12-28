@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/build/external/raylib/raylib/include"
+                "${workspaceFolder}/build/external/raylib/raylib/include",
+                "D:/Raylib_Examples/external/imgui/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

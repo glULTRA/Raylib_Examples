@@ -16,14 +16,16 @@ add_custom_target(always_rebuild ALL
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC ./external/raylib/include/
+    PUBLIC ./external/imgui/include/
 )
 
 target_link_directories(${PROJECT_NAME}
     PUBLIC ./external/raylib/src/
+    PUBLIC ./external/imgui/src/
 )
 
 IF(WIN32)
-    target_link_libraries(${PROJECT_NAME} raylib opengl32 gdi32 winmm)
+    target_link_libraries(${PROJECT_NAME} raylib imgui opengl32 gdi32 winmm)
 ELSEIF(UNIX)
-    target_link_libraries(${PROJECT_NAME} raylib)
+    target_link_libraries(${PROJECT_NAME} raylib imgui)
 ENDIF()

@@ -4,6 +4,7 @@
 #include <raylib.h>
 #include <rlgl.h>
 #include <raymath.h>
+#include <imgui_impl_glfw.h>
 
 #if defined(_WIN32)
     #define GLSL_VERSION 330
@@ -53,9 +54,11 @@ int main()
         else if(IsKeyPressed(KEY_S)) space-=0.1f;
 
         /* <---- Render ----> */
-        
         BeginDrawing();
             ClearBackground(BLACK);
+            ImGui::Begin("Hello");
+                ImGui::Text("Hi");
+            ImGui::End();
             BeginMode3D(camera);
                 DrawGrid(slice, space);
                 DrawModel(model, Vector3{0.0f, 0.0f, 0.0f}, 1.0f, WHITE);
