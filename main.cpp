@@ -17,6 +17,7 @@
 int main()
 {
     // Initialize Window
+    SetConfigFlags(FLAG_MSAA_4X_HINT);      // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
     // Camera
@@ -24,9 +25,14 @@ int main()
     SetCameraMode(camera, CAMERA_THIRD_PERSON);
 
     // Model
-    Model model = Model{1.0f};
-    model = LoadModel("examples/res/Object/Model2/watermill.obj");
+    Model model = LoadModel("examples/res/Object/Model2/watermill.obj");
+    Texture2D texture = LoadTexture("examples/res/Object/Model2/watermill_diffuse.png");
 
+    // Shader
+    Shader shader = LoadShader(0, TextFormat("examples/res/Shader/glsl%i/Shader2.fs", GLSL_VERSION));
+
+    model.materials[0].shader = shader;
+    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
 
     // FPS
     SetTargetFPS(60);
@@ -39,7 +45,7 @@ int main()
 
         /* <---- Render ----> */
         BeginDrawing();
-            ClearBackground(BLACK);
+            ClearBackground(WHITE);
             BeginMode3D(camera);
                 DrawGrid(10, 1.0f);
                 DrawModel(model, Vector3{0.0f, 0.0f, 0.0f}, 0.3f, WHITE);
@@ -47,5 +53,13 @@ int main()
         EndDrawing();
     }
 
-    CloseWindow();
+    // De-Initialization
+    //--------------------------------------------------------------------------------------
+    UnloadShader(shader);       // Unload shader
+    UnloadTexture(texture);     // Unload texture
+    UnloadModel(model);         // Unload model
+
+    CloseWindow();              // Close window and OpenGL context
+    //--------------------------------------------------------------------------------------
+
 }
