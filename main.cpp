@@ -24,8 +24,8 @@ int main()
     SetCameraMode(camera, CAMERA_THIRD_PERSON);
 
     // Model
-    Model model = Model{};
-    Model model2 = Model{};
+    Model model = Model{1.0f};
+    Model model2 = Model{1.0f};
     model = LoadModel("examples/res/Object/Model1/gltf/rigged_figure.glb");
     model2 = LoadModel("examples/res/Object/Model1/gltf/vertex_colored_object.glb");
 
@@ -38,9 +38,10 @@ int main()
         /* <---------Update---------> */
         float time = GetTime();
         UpdateCamera(&camera);
-        model.transform     = MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 3.0f * time);
-        model2.transform    = MatrixTranslate(1.0f, 0.3f, 2.0f * std::cos(time));   
-
+        model.transform      = MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 3.0f * time);
+        model2.transform     = MatrixScale(0.5f,0.5f,0.5f);
+        model2.transform     = MatrixMultiply(model2.transform ,MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 3.0f * time));
+        model2.transform     = MatrixMultiply(model2.transform ,MatrixTranslate(0.0f, 0.0f, std::sin(time)));
         /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(BLACK);
