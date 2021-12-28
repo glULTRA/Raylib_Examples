@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12.0)
 project(Raylib)
 
 add_subdirectory(external/raylib)
-add_subdirectory(external/imgui)
+add_subdirectory(external/imgui/src)
 add_subdirectory(examples)
 
 add_executable(${PROJECT_NAME} main.cpp)
