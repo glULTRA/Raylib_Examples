@@ -25,7 +25,7 @@ target_link_directories(${PROJECT_NAME}
 )
 
 IF(WIN32)
-    target_link_libraries(${PROJECT_NAME} raylib imgui opengl32 gdi32 winmm)
+    target_link_libraries(${PROJECT_NAME} raylib  opengl32 gdi32 winmm)
 ELSEIF(UNIX)
-    target_link_libraries(${PROJECT_NAME} raylib imgui)
+    target_link_libraries(${PROJECT_NAME} raylib)
 ENDIF()
