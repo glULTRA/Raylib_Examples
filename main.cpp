@@ -92,8 +92,8 @@ int main()
         BeginDrawing();
             ClearBackground(WHITE);
             BeginMode3D(camera);
+                DrawGrid(10, 1.0f);
                 BeginShaderMode(heightmap.shader);
-                    DrawGrid(10, 1.0f);
                     DrawModel(heightmap.model, Vector3{-3.0f, 0.0f, -3.0f}, 5.0f, WHITE);
                     SetShaderValue(heightmap.shader, GetShaderLocation(heightmap.shader, "xColor"), &xValue, SHADER_UNIFORM_FLOAT);
                 EndShaderMode();
