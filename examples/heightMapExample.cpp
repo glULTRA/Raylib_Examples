@@ -84,13 +84,13 @@ int main()
                 DrawModel(heightmap.model, Vector3{-3.0f, 0.0f, -3.0f}, 5.0f, BLUE);
             EndMode3D();
             //DrawTexture(texture, SCR_WIDTH - texture.width, 50, WHITE);
-            if(GuiButton(Rectangle{500.0f, 50.0f, 70.0f ,30.0f}, "HrightMap1"))
+            if(GuiButton(Rectangle{500.0f, 50.0f, 70.0f ,30.0f}, "HeightMap1"))
                 choose = 0;
-            else if(GuiButton(Rectangle{500.0f, 80.0f, 70.0f ,30.0f}, "HrightMap2"))
+            else if(GuiButton(Rectangle{500.0f, 80.0f, 70.0f ,30.0f}, "HeightMap2"))
                 choose = 1;
-            else if(GuiButton(Rectangle{500.0f, 110.0f, 70.0f ,30.0f}, "HrightMap3"))
+            else if(GuiButton(Rectangle{500.0f, 110.0f, 70.0f ,30.0f}, "HwightMap3"))
                 choose = 2;
-            else if(GuiButton(Rectangle{500.0f, 140.0f, 70.0f ,30.0f}, "HrightMap4"))
+            else if(GuiButton(Rectangle{500.0f, 140.0f, 70.0f ,30.0f}, "HeightMap4"))
                 choose = 3;
         EndDrawing();
     }
