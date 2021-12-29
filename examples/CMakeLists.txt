@@ -14,6 +14,7 @@ project(drawShpereWires)
 project(modelWithRaymath)
 project(matrixMultiply)
 project(loadingModel)
+project()
 
 add_executable(circle_gardient circle_gardient.cpp)
 add_executable(mousePosition mousePosition.cpp)
