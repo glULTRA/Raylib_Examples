@@ -80,6 +80,9 @@ int main()
         }else if(choose == 2 && prevChoose != choose){
             heightmap = ChooseHeightMap("examples/res/Texture/heightmap3.png");
             prevChoose = choose;
+        }else if(choose == 3 && prevChoose != choose){
+            heightmap = ChooseHeightMap("examples/res/Texture/heightmap4.png");
+            prevChoose = choose;
         }
 
         /* <---- Render ----> */
@@ -96,6 +99,8 @@ int main()
                 choose = 1;
             else if(GuiButton(Rectangle{500.0f, 110.0f, 70.0f ,30.0f}, "HrightMap3"))
                 choose = 2;
+            else if(GuiButton(Rectangle{500.0f, 140.0f, 70.0f ,30.0f}, "HrightMap4"))
+                choose = 3;
         EndDrawing();
     }
 
