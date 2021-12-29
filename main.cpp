@@ -41,6 +41,7 @@ HeightMap ChooseHeightMap(const char* path){
     heightmap.texture = texture;
     heightmap.mesh = mesh;
     heightmap.model = model;
+    heightmap.shader = shader;
 
     UnloadImage(image);
 
@@ -60,6 +61,7 @@ int main()
     // HeightMap
     int choose = 0;
     HeightMap heightmap = ChooseHeightMap("examples/res/Texture/heightmap.png");
+
 
     // FPS
     SetTargetFPS(60);
