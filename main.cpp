@@ -24,15 +24,17 @@ int main()
     Camera3D camera = Camera3D{ { 0.0f, 10.0f, 10.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
     SetCameraMode(camera, CAMERA_THIRD_PERSON);
 
+    // Texture
+    Image image = LoadImage("examples/res/Texture/heightmap.png");
+    Texture2D texture = LoadTextureFromImage(image);
+    
+    // Mesh
+    Mesh mesh = GenMeshHeightmap(image, Vector3{1.0f, 1.0f, 1.0f});
     // Model
-    Model model = LoadModel("examples/res/Object/Model2/watermill.obj");
-    Texture2D texture = LoadTexture("examples/res/Object/Model2/watermill_diffuse.png");
-
-    // Shader
-    Shader shader = LoadShader(0, TextFormat("examples/res/Shader/glsl%i/Shader2.fs", GLSL_VERSION));
-
-    model.materials[0].shader = shader;
+    Model model = LoadModelFromMesh(mesh);
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+
+    UnloadImage(image);
 
     // FPS
     SetTargetFPS(60);
@@ -48,18 +50,12 @@ int main()
             ClearBackground(WHITE);
             BeginMode3D(camera);
                 DrawGrid(10, 1.0f);
-                DrawModel(model, Vector3{0.0f, 0.0f, 0.0f}, 0.3f, WHITE);
+                DrawModel(model, Vector3{-3.0f, 0.0f, -3.0f}, 5.0f, BLUE);
             EndMode3D();
+            DrawTexture(texture, 450, 50, WHITE);
+
         EndDrawing();
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    UnloadShader(shader);       // Unload shader
-    UnloadTexture(texture);     // Unload texture
-    UnloadModel(model);         // Unload model
-
-    CloseWindow();              // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
+    CloseWindow();
 }
