@@ -1,9 +1,5 @@
 #include <iostream>
-#include <cmath>
-#include <vector>
 #include <raylib.h>
-#include <rlgl.h>
-#include <raymath.h>
 
 #if defined(_WIN32)
     #define GLSL_VERSION 330
@@ -22,18 +18,23 @@ typedef struct ULTHeightMap{
     Texture texture;
     Mesh mesh;
     Model model;
+    Shader shader;
 } HeightMap;
 
 HeightMap ChooseHeightMap(const char* path){
     // Texture
     Image image = LoadImage(path);
     Texture2D texture = LoadTextureFromImage(image);
-    
+    // Shader
+    Shader shader = LoadShader(0, TextFormat("examples/res/Shader/glsl%i/Shader3.fs", GLSL_VERSION));
+
     // Mesh
     Mesh mesh = GenMeshHeightmap(image, Vector3{1.0f, 1.0f, 1.0f});
+    
     // Model
     Model model = LoadModelFromMesh(mesh);
     model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+    model.materials[0].shader = shader;
 
     HeightMap heightmap;
     heightmap.image = image;
@@ -59,10 +60,6 @@ int main()
     // HeightMap
     int choose = 0;
     HeightMap heightmap = ChooseHeightMap("examples/res/Texture/heightmap.png");
-
-    // Shader
-    Shader shader = LoadShader(0, "Shader.fs");
-    heightmap.model.materials[0].shader = shader;
 
     // FPS
     SetTargetFPS(60);
@@ -95,10 +92,10 @@ int main()
         BeginDrawing();
             ClearBackground(WHITE);
             BeginMode3D(camera);
-                BeginShaderMode(shader);
+                BeginShaderMode(heightmap.shader);
                     DrawGrid(10, 1.0f);
                     DrawModel(heightmap.model, Vector3{-3.0f, 0.0f, -3.0f}, 5.0f, WHITE);
-                    SetShaderValue(shader, GetShaderLocation(shader, "xColor"), &xValue, SHADER_UNIFORM_FLOAT);
+                    SetShaderValue(heightmap.shader, GetShaderLocation(heightmap.shader, "xColor"), &xValue, SHADER_UNIFORM_FLOAT);
                 EndShaderMode();
             EndMode3D();
             //DrawTexture(texture, SCR_WIDTH - texture.width, 50, WHITE);

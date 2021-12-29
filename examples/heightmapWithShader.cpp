@@ -59,7 +59,7 @@ int main()
 
     // HeightMap
     int choose = 0;
-    HeightMap heightmap = ChooseHeightMap("examples/res/Texture/heightmap.png");
+    HeightMap heightmap = ChooseHeightMap("res/Texture/heightmap.png");
 
     // FPS
     SetTargetFPS(60);
@@ -74,17 +74,17 @@ int main()
         xValue = (std::sin(time) / 2.0f) + 0.5f;
 
         if(choose == 0 && prevChoose != choose ){
-            heightmap = ChooseHeightMap("examples/res/Texture/heightmap.png");
+            heightmap = ChooseHeightMap("res/Texture/heightmap.png");
             prevChoose = choose;
         }
         else if(choose == 1 && prevChoose != choose){
-            heightmap = ChooseHeightMap("examples/res/Texture/heightmap2.png");
+            heightmap = ChooseHeightMap("res/Texture/heightmap2.png");
             prevChoose = choose;
         }else if(choose == 2 && prevChoose != choose){
-            heightmap = ChooseHeightMap("examples/res/Texture/heightmap3.png");
+            heightmap = ChooseHeightMap("res/Texture/heightmap3.png");
             prevChoose = choose;
         }else if(choose == 3 && prevChoose != choose){
-            heightmap = ChooseHeightMap("examples/res/Texture/heightmap4.png");
+            heightmap = ChooseHeightMap("res/Texture/heightmap4.png");
             prevChoose = choose;
         }
 
