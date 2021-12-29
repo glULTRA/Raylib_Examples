@@ -1,5 +1,7 @@
 #include <iostream>
 #include <raylib.h>
+#include <raymath.h>
+
 
 #if defined(_WIN32)
     #define GLSL_VERSION 330
@@ -62,7 +64,6 @@ int main()
     int choose = 0;
     HeightMap heightmap = ChooseHeightMap("examples/res/Texture/heightmap.png");
 
-
     // FPS
     SetTargetFPS(60);
     
@@ -88,6 +89,11 @@ int main()
         }else if(choose == 3 && prevChoose != choose){
             heightmap = ChooseHeightMap("examples/res/Texture/heightmap4.png");
             prevChoose = choose;
+        }else if(choose == 4 && prevChoose != choose){
+            heightmap = ChooseHeightMap("examples/res/Texture/heightmap5.png");
+            heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 240.0f));
+            heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixTranslate(0.0f, 1.0f, 0.0f));
+            prevChoose = choose;
         }
 
         /* <---- Render ----> */
@@ -109,6 +115,8 @@ int main()
                 choose = 2;
             else if(GuiButton(Rectangle{500.0f, 140.0f, 70.0f ,30.0f}, "HeightMap4"))
                 choose = 3;
+            else if(GuiButton(Rectangle{500.0f, 170.0f, 70.0f ,30.0f}, "HeightMap5"))
+                choose = 4;
         EndDrawing();
     }
 
