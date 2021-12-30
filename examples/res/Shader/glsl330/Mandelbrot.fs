@@ -1,6 +1,8 @@
 #version 330 core
 
 in vec2 coord;
+uniform float MaxIterations;
+uniform float xColor;
 
 out vec4 pixelColor;
 
@@ -13,7 +15,7 @@ void main()
 
     float r2 = 0.0;
 
-    for (float iter = 0.0; iter < 20 && r2 < 4.0; ++iter)
+    for (float iter = 0.0; iter < MaxIterations && r2 < 4.0; ++iter)
     {
         float tempreal = real;
 
@@ -30,4 +32,5 @@ void main()
         color = vec3(1.0f, 1.0f, 1.0f);
 
     pixelColor = vec4(color, 1.0);
+    //pixelColor = vec4(1.0f * xColor, 0.5f, 0.31f, 1.0f);
 }

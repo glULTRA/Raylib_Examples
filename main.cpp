@@ -1,5 +1,6 @@
 #include <iostream>
 #include <raylib.h>
+#include <cmath>
 #include <raymath.h>
 
 
@@ -22,9 +23,6 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);      // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
-    // Shader
-    Shader shader = LoadShader("examples/res/Shader/glsl330/Mandelbrot.vs", "examples/res/Shader/glsl330/Mandelbrot.fs");
-
     // FPS
     SetTargetFPS(60);
     
@@ -36,9 +34,6 @@ int main()
         /* <---- Render ----> */
         BeginDrawing();
             ClearBackground(BLACK);
-            BeginShaderMode(shader);
-                DrawRectangle(0, 0, SCR_WIDTH, SCR_HEIGHT, WHITE);
-            EndShaderMode();
         EndDrawing();
     }
 
