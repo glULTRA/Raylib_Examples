@@ -22,14 +22,8 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);      // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
-    // Texture
-    Texture2D texture = LoadTexture("examples/res/Texture/heightmap5.png");
-    
-
     // Shader
-    Shader shader = LoadShader(0, "examples/res/Shader/glsl330/Mandelbrot.fs");
-    Vector2 uResolution = {SCR_WIDTH, SCR_HEIGHT};
-    SetShaderValue(shader, GetShaderLocation(shader, "uResolution"), &uResolution, SHADER_UNIFORM_VEC2);
+    Shader shader = LoadShader("examples/res/Shader/glsl330/Mandelbrot.vs", "examples/res/Shader/glsl330/Mandelbrot.fs");
 
     // FPS
     SetTargetFPS(60);
@@ -43,9 +37,7 @@ int main()
         BeginDrawing();
             ClearBackground(BLACK);
             BeginShaderMode(shader);
-                //DrawRectangle(100, 0, SCR_WIDTH, SCR_HEIGHT, WHITE);
-                DrawTexture(texture, 0, 0, WHITE);
-                SetShaderValue(shader, GetShaderLocation(shader, "uTime"), &time, SHADER_UNIFORM_FLOAT);
+                DrawRectangle(0, 0, SCR_WIDTH, SCR_HEIGHT, WHITE);
             EndShaderMode();
         EndDrawing();
     }
