@@ -32,11 +32,6 @@ int main()
     camera.projection = CAMERA_PERSPECTIVE;
     SetCameraMode(camera, CAMERA_THIRD_PERSON);
 
-    // Cube 
-    Model model = LoadModelFromMesh(GenMeshPlane(10.0f, 10.0f, 3, 3));
-    Model cube = LoadModelFromMesh(GenMeshCube(1.0f, 1.0f, 1.0f));
-    Vector3 cubepos = Vector3{0.0f, 0.0f, 0.0f};
-
     // FPS
     SetTargetFPS(60);
     
@@ -50,9 +45,7 @@ int main()
         BeginDrawing();
             ClearBackground(WHITE);
             BeginMode3D(camera);
-                DrawModel(model, Vector3Zero(),1.0f, RED);
-                DrawModel(cube, Vector3Zero(), 1.0f, RED);
-                DrawGrid(10.0f, 1.0f);
+                
             EndMode3D();
         EndDrawing();
     }
