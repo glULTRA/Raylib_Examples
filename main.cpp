@@ -10,6 +10,9 @@
     #define GLSL_VERSION 100
 #endif
 
+#define RLIGHTS_IMPLEMENTATION
+#include <rlights.h>
+
 #define RAYGUI_IMPLEMENTATION
 #include <extras/raygui.h>
 
@@ -23,6 +26,17 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);      // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
+    // Camera
+    Camera3D camera = Camera{Vector3{2.0f, 4.0f, 6.0f}, Vector3{0.0f, 1.0f, 0.0f}, Vector3{0.0f, 1.0f, 0.0f}};
+    camera.fovy = 45.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
+    SetCameraMode(camera, CAMERA_THIRD_PERSON);
+
+    // Cube 
+    Model model = LoadModelFromMesh(GenMeshPlane(10.0f, 10.0f, 3, 3));
+    Model cube = LoadModelFromMesh(GenMeshCube(1.0f, 1.0f, 1.0f));
+    Vector3 cubepos = Vector3{0.0f, 0.0f, 0.0f};
+
     // FPS
     SetTargetFPS(60);
     
@@ -30,10 +44,16 @@ int main()
     {
         /* <---------Update---------> */
         float time = GetTime();
+        UpdateCamera(&camera);
 
         /* <---- Render ----> */
         BeginDrawing();
-            ClearBackground(BLACK);
+            ClearBackground(WHITE);
+            BeginMode3D(camera);
+                DrawModel(model, Vector3Zero(),1.0f, RED);
+                DrawModel(cube, Vector3Zero(), 1.0f, RED);
+                DrawGrid(10.0f, 1.0f);
+            EndMode3D();
         EndDrawing();
     }
 
