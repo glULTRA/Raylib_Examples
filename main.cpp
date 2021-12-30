@@ -10,9 +10,6 @@
     #define GLSL_VERSION 100
 #endif
 
-#define RLIGHTS_IMPLEMENTATION
-#include <rlights.h>
-
 #define RAYGUI_IMPLEMENTATION
 #include <extras/raygui.h>
 
@@ -32,6 +29,14 @@ int main()
     camera.projection = CAMERA_PERSPECTIVE;
     SetCameraMode(camera, CAMERA_THIRD_PERSON);
 
+    // Texture
+    Texture2D texture = LoadTexture("examples/res/Texture/cubicmap.png");
+    Image image = LoadImage("examples/res/Texture/cubicmap.png");
+
+    // Model
+    Mesh mesh   = GenMeshCubicmap(image, Vector3{1.0f, 1.0f, 1.0f});
+    Model model = LoadModelFromMesh(mesh);
+
     // FPS
     SetTargetFPS(60);
     
@@ -45,8 +50,9 @@ int main()
         BeginDrawing();
             ClearBackground(WHITE);
             BeginMode3D(camera);
-                
+                DrawModel(model, Vector3Zero(), 1.0f, RED);
             EndMode3D();
+            DrawTexture(texture, 500, 50, WHITE);
         EndDrawing();
     }
 
