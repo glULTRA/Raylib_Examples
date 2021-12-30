@@ -30,12 +30,13 @@ int main()
     SetCameraMode(camera, CAMERA_THIRD_PERSON);
 
     // Texture
-    Texture2D texture = LoadTexture("examples/res/Texture/cubicmap.png");
+    Texture2D texture = LoadTexture("examples/res/Texture/cubicmap_atlas.png");
     Image image = LoadImage("examples/res/Texture/cubicmap.png");
 
     // Model
     Mesh mesh   = GenMeshCubicmap(image, Vector3{1.0f, 1.0f, 1.0f});
     Model model = LoadModelFromMesh(mesh);
+    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
 
     // FPS
     SetTargetFPS(60);
@@ -50,9 +51,8 @@ int main()
         BeginDrawing();
             ClearBackground(WHITE);
             BeginMode3D(camera);
-                DrawModel(model, Vector3Zero(), 1.0f, RED);
+                DrawModel(model, Vector3{-10.0f, 0.0f, -10.0f}, 1.0f, BLUE);
             EndMode3D();
-            DrawTexture(texture, 500, 50, WHITE);
         EndDrawing();
     }
 
