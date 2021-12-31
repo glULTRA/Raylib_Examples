@@ -1,17 +1,10 @@
 // NOTE: most of examples has been taken from raylib.com and edited here.
 
-
 #include <iostream>
 #include <raylib.h>
 #include <cmath>
 #include <raymath.h>
 
-
-#if defined(_WIN32)
-    #define GLSL_VERSION 330
-#else
-    #define GLSL_VERSION 100
-#endif
 
 #define RAYGUI_IMPLEMENTATION
 #include <extras/raygui.h>
