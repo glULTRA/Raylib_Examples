@@ -95,6 +95,12 @@ int main()
             heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixTranslate(0.0f, 1.0f, 0.0f));
             prevChoose = choose;
         }
+        else if(choose == 6 && prevChoose != choose){
+            heightmap = ChooseHeightMap("res/Texture/heightmap6.png");
+            heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 240.0f));
+            heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixTranslate(0.0f, 1.0f, 0.0f));
+            prevChoose = choose;
+        }
 
         /* <---- Render ----> */
         BeginDrawing();
@@ -117,6 +123,8 @@ int main()
                 choose = 3;
             else if(GuiButton(Rectangle{500.0f, 170.0f, 70.0f ,30.0f}, "HeightMap5"))
                 choose = 4;
+            else if(GuiButton(Rectangle{500.0f, 200.0f, 70.0f ,30.0f}, "HeightMap6"))
+                choose = 5;
         EndDrawing();
     }
 
