@@ -97,8 +97,6 @@ int main()
         }
         else if(choose == 5 && prevChoose != choose){
             heightmap = ChooseHeightMap("res/Texture/heightmap6.png");
-            heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixRotate(Vector3{1.0f, 0.0f, 0.0f}, 240.0f));
-            heightmap.model.transform = MatrixMultiply(heightmap.model.transform,MatrixTranslate(0.0f, 1.0f, 0.0f));
             prevChoose = choose;
         }
 
