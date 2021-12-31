@@ -27,9 +27,9 @@ int main()
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
     // Texture
-    Texture2D foreground = LoadTexture("examples/res/Texture/cyberpunk_street_foreground.png");
-    Texture2D midground  = LoadTexture("examples/res/Texture/cyberpunk_street_midground.png");
-    Texture2D background  = LoadTexture("examples/res/Texture/cyberpunk_street_background.png");
+    Texture2D foreground = LoadTexture("res/Texture/cyberpunk_street_foreground.png");
+    Texture2D midground  = LoadTexture("res/Texture/cyberpunk_street_midground.png");
+    Texture2D background  = LoadTexture("res/Texture/cyberpunk_street_background.png");
 
     // Texture Position
     float scale = 2.0f;
