@@ -23,20 +23,15 @@ int main()
     SetConfigFlags(FLAG_MSAA_4X_HINT);      // Enable Multi Sampling Anti Aliasing 4x (if available)
     InitWindow(SCR_WIDTH, SCR_HEIGHT, "Raylib");
 
-    // Camera
-    Camera3D camera = Camera{Vector3{2.0f, 4.0f, 6.0f}, Vector3{0.0f, 1.0f, 0.0f}, Vector3{0.0f, 1.0f, 0.0f}};
-    camera.fovy = 45.0f;
-    camera.projection = CAMERA_PERSPECTIVE;
-    SetCameraMode(camera, CAMERA_THIRD_PERSON);
-
     // Texture
-    Texture2D texture = LoadTexture("examples/res/Texture/cubicmap_atlas.png");
-    Image image = LoadImage("examples/res/Texture/cubicmap.png");
+    Texture2D foreground = LoadTexture("examples/res/Texture/cyberpunk_street_foreground.png");
+    Texture2D midground  = LoadTexture("examples/res/Texture/cyberpunk_street_midground.png");
 
-    // Model
-    Mesh mesh   = GenMeshCubicmap(image, Vector3{1.0f, 1.0f, 1.0f});
-    Model model = LoadModelFromMesh(mesh);
-    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+    // Texture Position
+    float scale = 2.0f;
+    Vector2 foreground_pos = Vector2{0.0f, (float) SCR_HEIGHT - (scale*foreground.height)};
+    Vector2 midground_pos  = Vector2{0.0f, (float)(SCR_HEIGHT - 90) - (scale*foreground.height)};
+
 
     // FPS
     SetTargetFPS(60);
@@ -45,14 +40,27 @@ int main()
     {
         /* <---------Update---------> */
         float time = GetTime();
-        UpdateCamera(&camera);
+
+        static float f_speed = 1.9f;
+        static float m_speed = 0.5f;
+        foreground_pos.x -= f_speed;
+        midground_pos.x  -= m_speed;
+
+        if(foreground_pos.x <= -foreground.width * scale) foreground_pos.x = 0;
+        if(midground_pos.x <= -midground.width * scale) midground_pos.x = 0;
 
         /* <---- Render ----> */
         BeginDrawing();
-            ClearBackground(WHITE);
-            BeginMode3D(camera);
-                DrawModel(model, Vector3{-10.0f, 0.0f, -10.0f}, 1.0f, BLUE);
-            EndMode3D();
+            ClearBackground(Color{30, 70, 100, 255});
+
+            DrawTextureEx(midground, midground_pos, 0.0f, scale, WHITE);
+            DrawTextureEx(midground, Vector2{midground_pos.x + (midground.width * scale), midground_pos.y}, 0.0f, scale, WHITE);
+
+            DrawTextureEx(foreground, foreground_pos, 0.0f, scale, WHITE);
+            DrawTextureEx(foreground, Vector2{foreground_pos.x + (foreground.width * scale), foreground_pos.y}, 0.0f, scale, WHITE);
+
+            f_speed = GuiSliderBar(Rectangle{SCR_WIDTH - 100, 50, 70, 30}, "Foreground Speed", "", f_speed, 0.1f, 10.0f);
+            m_speed = GuiSliderBar(Rectangle{SCR_WIDTH - 100, 80, 70, 30}, "Midground Speed", "", m_speed, 0.1f, 10.0f);
         EndDrawing();
     }
 
