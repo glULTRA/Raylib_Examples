@@ -1,8 +1,6 @@
 {
     "files.associations": {
-<<<<<<< HEAD
         "ostream": "cpp"
-=======
         "atomic": "cpp",
         "bit": "cpp",
         "cctype": "cpp",
@@ -46,6 +44,5 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
->>>>>>> 93d5e60e3a821b8c50e6487aad61d118c49e4b88
     }
 }

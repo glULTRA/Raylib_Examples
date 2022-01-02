@@ -9,50 +9,6 @@
 #define SCR_WIDTH 612
 #define SCR_HEIGHT 612
 
-/*
-     static int  rate        = 5;
-        static bool isToUp      = pixel.y > (SCR_HEIGHT/2)  - rate;
-        static bool isToRight   = false;
-        static bool isToDown    = false;
-        static bool isToLeft    = false;
-
-        for(int i = 0; i < speed; i++){
-            if(isToUp){
-                isToUp = (pixel.y) > ((SCR_HEIGHT/2) - rate);
-                pixel.y -= 1.0f;
-                color = RED;
-                if(!isToUp)
-                    isToRight = true;
-            }
-            else if(isToRight){
-                isToRight = pixel.x < (SCR_WIDTH/2) + rate;
-                pixel.x += 1.0f;
-                color = BLUE;
-                if(!isToRight)
-                    isToDown = true;
-            }
-            else if(isToDown){
-                isToDown = pixel.y < (SCR_HEIGHT/2) + (rate);
-                pixel.y += 1.0f;
-                color  = GREEN;
-                if(!isToDown)
-                    isToLeft = true;
-            }
-            else if(isToLeft){
-                isToLeft = pixel.x > (SCR_WIDTH/2) - (rate);
-                pixel.x -= 1.0f;
-                color = YELLOW;
-            }
-            else{
-                rate += 5;
-                isToUp = true;
-            }
-
-            pixeles.push_back(pixel);
-            colors.push_back(color);
-        }
-*/
-
 
 int main()
 {
@@ -74,61 +30,6 @@ int main()
     {
         /* <---------Update---------> */
         float time = GetTime();
-
-        // Update pixel's position
-        /*static int rate = 100;
-        static float speedType = 1.0f;
-        static bool isToLeft = true;
-        static bool isToRightDown = false;
-        static bool isToUpCenter = false;
-        static bool isToLeftDown = false;
-        static bool isGetBack = false; // isRightUp
-
-        if(isToLeft){
-            isToLeft = pixel.x > (SCR_WIDTH / 2) - rate;
-            pixel.x -= speedType;
-            color = RED;
-            if(!isToLeft)
-                isToRightDown = true;
-        }
-        else if(isToRightDown){
-            isToRightDown = (pixel.x < (SCR_WIDTH / 2) + (rate)) && (pixel.y < (SCR_HEIGHT / 2) + (rate));
-            pixel.x += speedType;
-            pixel.y += speedType;
-            color = GREEN;
-            if(!isToRightDown)
-                isToUpCenter = true;
-        }else if(isToUpCenter){
-            isToUpCenter = (pixel.x > (SCR_WIDTH / 2) - (rate)) && (pixel.y > (SCR_HEIGHT / 2) - (rate));
-            pixel.x -= speedType - (speedType-0.4f);
-            pixel.y -= speedType;
-            color = BLUE;
-            if(!isToUpCenter)
-                isToLeftDown = true;
-        }
-        else if(isToLeftDown){
-            isToLeftDown = (pixel.x > (SCR_WIDTH / 2) - (rate)) && (pixel.y < (SCR_HEIGHT / 2) + (rate));
-            pixel.x -= speedType - (speedType-0.4f);
-            pixel.y += speedType;
-            color = YELLOW;
-
-            if(!isToLeftDown)
-                isGetBack = true;
-        }
-        else if(isGetBack){
-            isGetBack = (pixel.x < (SCR_HEIGHT / 2) + (rate)) && (pixel.y > (SCR_HEIGHT / 2) - (rate));
-            pixel.x += speedType + 0.2f;
-            pixel.y -= speedType;
-            color = ORANGE;
-            if(!isGetBack){
-                isToLeft = true;
-                rate += 20;
-            }
-        }
-
-        pixeles.push_back(pixel);
-        colors.push_back(color);
-        */
        
         static int  rate            = 3;
         static int  orginalRate     = rate;
@@ -201,10 +102,6 @@ int main()
                 DrawPixelV(pixeles[i], colors[i]);
             }
             DrawRectangle(SCR_WIDTH-200, SCR_HEIGHT-200, 200, 200, Fade(LIGHTGRAY, 0.3f));
-           //GuiSetStyle(TEXTBOX, COLOR_SELECTED_BG, ColorToInt(GREEN));
-           //GuiSetStyle(TEXTBOX, COLOR_SELECTED_FG, ColorToInt(GREEN));
-           //GuiSetStyle(BUTTON , COLOR_SELECTED_BG, ColorToInt(GREEN));
-           //GuiSetStyle(BUTTON , COLOR_SELECTED_FG, ColorToInt(GREEN));
             speed = (int)GuiSliderBar(Rectangle{SCR_WIDTH - 110, SCR_HEIGHT - 50, 60, 30}, "Speed", "", speed, 1.0f, 100.0f);
             orginalRate = GuiSliderBar(Rectangle{SCR_WIDTH - 110, SCR_HEIGHT - 80, 60, 30}, "Space", "", orginalRate, 1.0f, 50.0f);
             isReset = GuiButton(Rectangle{SCR_WIDTH - 110, SCR_HEIGHT - 110, 60, 30}, "Reset");
