@@ -5,6 +5,7 @@ project(Raylib)
 add_subdirectory(external/raylib)
 add_subdirectory(external/imgui/src)
 add_subdirectory(examples)
+add_subdirectory(game)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
