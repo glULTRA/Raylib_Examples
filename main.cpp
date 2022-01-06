@@ -4,10 +4,13 @@
 #include <ctime>
 #include <math.h>
 
-#define MAPSIZEX 4
-#define MAPSIZEY 8
-#define BLOCKSIZE 50
-#define OFFSET 5
+#define SCR_WIDTH 	612
+#define SCR_HEIGHT 	612
+#define MAPSIZEX 	25
+#define MAPSIZEY 	25
+#define BLOCKSIZE 	(SCR_WIDTH / MAPSIZEX)
+#define OFFSET 		5
+int blockLevel = 	50;
 
 // Tile Map
 char tileMap[MAPSIZEX][MAPSIZEY] = {
@@ -16,12 +19,13 @@ char tileMap[MAPSIZEX][MAPSIZEY] = {
 	{'#', '#', '#', '@', '#', '#', '#', '#'}, 
 	{'#', '#', '#', '#', '#', '#', '#', '#'}, 
 };
+char mapList[3] = {'#', '@', '$'};
 Vector2 player_pos = {0,0}; // X-Y axies position and matrices position
 Color colState[MAPSIZEX][MAPSIZEY];
 Vector2 block_pos[MAPSIZEX][MAPSIZEY];
 
 void GenerateRandomMap();
-void DrawGameMap();
+void DrawtileMap();
 void UpdateGame();
 void HandleInput();
 void Movements(int x, int y, int xDir, int yDir);
@@ -29,8 +33,13 @@ void BreakDir(int x, int y, int xDir, int yDir);
 
 int main() 
 {
-	InitWindow(612, 612, "My Window");
-	
+	// Set Random Numbers
+	srand(time(NULL));
+	// Initialize Window
+	InitWindow(612, 612, "Dig Out");
+
+	// Generate a random map.
+	GenerateRandomMap();
 
 	SetTargetFPS(60);
 	while (!WindowShouldClose()) 
@@ -46,12 +55,89 @@ int main()
 			ClearBackground(BLACK);
 			// Clear For Console
 			system("cls");
-			DrawGameMap();
+			DrawtileMap();
 		EndDrawing();
 	}
 }
 
-void DrawGameMap()
+void GenerateRandomMap()
+{
+	char getMapList[32];
+    int interval  = 0;
+    int counterOfDollar = 0;
+    int counterOfBlock  = 0;
+    int entireBlockInRow = 0;
+    int entireBlockInCol = 0;
+    for(int i = 0; i < MAPSIZEX; i++){
+        for (int j = 0; j < MAPSIZEY; j++){
+            // Skip Touching the player.
+            if(i == 0 && j == 0) continue;
+            // Touch other things.
+            Retry:
+                int getRandom = rand()%3;
+                tileMap[i][j] = mapList[rand()%3];
+
+                // We should set $ at 5 - 8 position at least.
+                if(tileMap[i][j] == '$' && j < 5)
+                    goto Retry;
+                
+                // We shouldn't make to much block maybe 10 is enough.
+                if(tileMap[i][j] == '@')
+                    counterOfBlock++;
+
+                if(counterOfBlock > blockLevel)
+                {
+                    counterOfBlock--;
+                    goto Retry;
+                }
+                // We should check if player's both side is not blocked.
+                if(tileMap[i][j] == tileMap[0][1] || tileMap[i][j] == tileMap[1][0]){
+                    if(tileMap[i][j] == '@'){
+                        counterOfBlock--;
+                        goto Retry;
+                    }
+                }
+
+                // We should check if entire row or column is not blocked.
+                entireBlockInRow = 0;
+                entireBlockInCol = 0;
+                for(int row = 0; row < 4; row++)
+                {
+                    if(tileMap[row][j] == '@')
+                        entireBlockInRow++;
+                    if(entireBlockInRow > 3)
+                    {
+                        entireBlockInRow--;
+                        counterOfBlock--;
+                        goto Retry;
+                    }
+                }
+                for(int col = 0; col < 8; col++)
+                {
+                    if(tileMap[i][col] == '@')
+                        entireBlockInRow++;
+                    if(entireBlockInCol > 7)
+                    {
+                        entireBlockInCol--;
+                        counterOfBlock--;
+                        goto Retry;
+                    }
+                }
+                // We should only set one dollar $.
+                if(tileMap[i][j] == '$')
+                    counterOfDollar++;
+                if(counterOfDollar > 1)
+                {
+                    counterOfDollar--;
+                    goto Retry;
+                }
+        }
+    }
+    if(counterOfBlock < blockLevel)
+        GenerateRandomMap();
+}
+
+void DrawtileMap()
 {
 	for(int i = 0; i < MAPSIZEX; i++){
 		for(int j = 0; j < MAPSIZEY; j++)
@@ -62,6 +148,7 @@ void DrawGameMap()
 	}
 
 	// For Console
+#if defined(CONSOLE_ON)
 	for(int i = 0; i < MAPSIZEX; i++){
 		for(int j = 0; j < MAPSIZEY; j++)
 		{
@@ -70,6 +157,7 @@ void DrawGameMap()
 		std::cout << std::endl;
 	}
 	std::cout << player_pos.x << " " << player_pos.y << std::endl;
+#endif
 }
 void UpdateGame()
 {
@@ -91,6 +179,8 @@ void UpdateGame()
 				continue;
 			else if(tileMap[i][j] == '@') // BLOCK
 				colState[i][j] = BLUE;
+			else if(tileMap[i][j] == '$') // JEWLLERY
+				colState[i][j] = ORANGE;
 			
 			block_pos[i][j].x = (BLOCKSIZE + OFFSET)*j;
 			block_pos[i][j].y = (BLOCKSIZE + OFFSET)*i;
@@ -154,7 +244,7 @@ void HandleInput(){
 
 void Movements(int x, int y, int xDir, int yDir)
 {
-	if(tileMap[x+yDir][y+xDir] == ' ')
+	if(tileMap[x+yDir][y+xDir] == ' ' ||  tileMap[x+yDir][y+xDir] == '$')
 	{
 		tileMap[x][y] = ' ';
 		tileMap[x+yDir][y + xDir] = '!';
