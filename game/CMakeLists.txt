@@ -14,4 +14,4 @@ IF(WIN32)
     target_link_libraries(DigOut raylib opengl32 winmm gdi32)
 ELSEIF(UNIX)
     target_link_libraries(DigOut raylib)
-ENDIF
+ENDIF()
