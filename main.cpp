@@ -31,6 +31,7 @@ Vector2 player_pos = {0,0}; // X-Y axies position and matrices position
 Color colState[MAPSIZEX][MAPSIZEY];
 Vector2 block_pos[MAPSIZEX][MAPSIZEY];
 bool isWinTheGame = false;
+bool isLost = false;
 
 void GenerateRandomMap();
 void DrawtileMap();
@@ -76,6 +77,9 @@ int main()
 			DrawText(TextFormat("Level : %d", level), SCR_WIDTH-100, 0, 16, GREEN);
 			DrawText(TextFormat("SCORE : %d", score), SCR_WIDTH-100, 20, 16, GREEN);
 			DrawRectangleLines((SCR_WIDTH/2)-180, (SCR_HEIGHT/2)-180, 364, 364, WHITE);
+			if(isLost){
+				DrawText("LOST", SCR_WIDTH/2, SCR_HEIGHT - 50, 20, RED);
+			}
 		EndDrawing();
 
 		/* <---- UPDATE ---->*/
@@ -89,6 +93,7 @@ int main()
 			tileMap[0][0] = '!';
 			goto NextLevel;
 		}
+		
 	}
 }
 
@@ -167,6 +172,8 @@ void GenerateRandomMap()
                     counterOfDollar--;
                     goto Retry;
                 }
+			block_pos[i][j].x = (BLOCKSIZE + OFFSET)*j;
+			block_pos[i][j].y = (BLOCKSIZE + OFFSET)*i;
         }
     }
     if(counterOfBlock < blockLevel)
@@ -220,8 +227,7 @@ void UpdateGame()
 			else if(tileMap[i][j] == '$') // JEWLLERY
 				colState[i][j] = YELLOW;
 			
-			block_pos[i][j].x = (BLOCKSIZE + OFFSET)*j;
-			block_pos[i][j].y = (BLOCKSIZE + OFFSET)*i;
+			
 		}
 	}
 
@@ -323,9 +329,16 @@ void SearchForBlockGravity(){
 		{
             if(tileMap[i][j] == '@')
 			{
+				if(tileMap[i+1][j] == '!'){
+						// Game Over
+						isLost = true;
+						return;
+				}
                 if(tileMap[i+1][j] == ' '){
-                    tileMap[i][j] = ' ';
-                    tileMap[i+1][j] = '@';
+                    tileMap[i][j] = ' '; // Make comment.
+                    tileMap[i+1][j] = '@'; // Make comment.
+					//block_pos[i][j].y += 0.7f; // Uncomment its to Slow motion.
+					
                 }
             }
         }
